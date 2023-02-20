@@ -1,6 +1,5 @@
+require("globals")
 sample = {}
-
-sample.data = {}
 
 function sample.load()
 end

@@ -2,13 +2,14 @@ require("globals")
 function love.load()
     require "grid"
     require "cursor"
+    require "dataviewer"
 
     love.graphics.setDefaultFilter("nearest", "nearest")
     love.window.setVSync(1)
 
     id = 1
-    for y = 1, 5 do
-        for x = 1, 5 do
+    for y = 1, g_gridconfig.y do
+        for x = 1, g_gridconfig.x do
             n = love.math.random(1,4)
             e = {[1]=0, [2]=90,[3]=180,[4]=270}
             g_grid[id] = {["orientation"] = e[n]}
@@ -29,14 +30,12 @@ end
 
 function love.draw()
 
-    love.graphics.setColor(0, 0, 0)
-    love.graphics.rectangle("fill", 0, 0, 60, 50)
-
     love.graphics.setColor(1, 0, 0)
-    love.graphics.print("FPS: " .. love.timer.getFPS(), 5, 5)
+    -- love.graphics.print("FPS: " .. love.timer.getFPS(), 5, 5)
 
     grid.draw()
     cursor.draw()
+    dataviewer.draw()
 end
 
 function love.keypressed(key, scancode, isrepeat)
