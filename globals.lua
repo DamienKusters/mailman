@@ -1,8 +1,9 @@
 g_gridconfig = {
     ["y"]=7,
-    ["x"]=5
+    ["x"]=5,
+    ['tilesize'] = 16,
+    ['scale'] = 4
 }
-g_spritescale = 4;
 
 g_grid = {}
 g_index = 1

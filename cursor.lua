@@ -5,6 +5,9 @@ local sprite = nil
 local sound_turn = nil
 local sound_move = nil
 
+local scale = g_gridconfig.scale
+local offset = g_gridconfig.tilesize*scale
+
 function cursor.load()
     sprite = love.graphics.newImage("assets/cursor.png")
     sound_turn = love.audio.newSource("assets/turn.wav", "stream")
@@ -62,8 +65,10 @@ function cursor.draw()
     for y = 1, g_gridconfig.y do
         for x = 1, g_gridconfig.x do
             if id == g_index then
-                love.graphics.draw(sprite, x * 16*g_spritescale, y * 16*g_spritescale, 0, g_spritescale, g_spritescale, 16/2, 16/2)
-                -- TODO: 16-> 8 use offset thing
+                div = g_gridconfig.tilesize/2
+                xpos = ((x * offset) - div*scale) + 32*scale
+                ypos = ((y * offset) - div*scale) + 16*scale
+                love.graphics.draw(sprite, xpos, ypos, 0, scale, scale, div, div)
             end
             id = id +1
         end

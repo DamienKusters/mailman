@@ -2,6 +2,7 @@ require("globals")
 function love.load()
     require "grid"
     require "cursor"
+    require "inputcolumn"
     require "dataviewer"
 
     love.graphics.setDefaultFilter("nearest", "nearest")
@@ -23,12 +24,14 @@ function love.load()
 
     grid.load()
     cursor.load()
+    inputcolumn.load()
 end
 
 function love.update(dt)
 
     grid.update()--todo dt
     cursor.update()
+    inputcolumn.update()
 end
 
 function love.draw()
@@ -38,6 +41,7 @@ function love.draw()
 
     grid.draw()
     cursor.draw()
+    inputcolumn.draw()
     dataviewer.draw()
 end
 

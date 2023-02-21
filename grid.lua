@@ -1,7 +1,8 @@
 require("globals")
 grid = {}
 
-local offset = 16*g_spritescale
+local scale = g_gridconfig.scale
+local offset = g_gridconfig.tilesize*scale
 
 local sprite_L = nil
 local sprite_I = nil
@@ -10,7 +11,6 @@ local sprite_T = nil
 function grid.load()
     sprite_L = love.graphics.newImage("assets/l.png")
     sprite_I = love.graphics.newImage("assets/i.png")
-    sprite_T = love.graphics.newImage("assets/t.png")
 end
 
 function grid.update()
@@ -31,8 +31,10 @@ function grid.draw()
             else
                 love.graphics.setColor(1,1,1)
             end
-
-            love.graphics.draw(sprite, x * offset, y * offset, math.rad(g_grid[id].orientation), g_spritescale, g_spritescale, 16/2, 16/2)
+            div = g_gridconfig.tilesize/2
+            xpos = ((x * offset) - div*scale) + 32*scale
+            ypos = ((y * offset) - div*scale) + 16*scale
+            love.graphics.draw(sprite, xpos, ypos, math.rad(g_grid[id].orientation), scale, scale, div, div)
             id = id +1
         end
     end
@@ -44,6 +46,6 @@ function grid.keypressed(key, scancode, isrepeat)
             g.selected = false
         end
 
-        g_recursive(g_gridconfig.x + 1,1)
+        g_recursive(g_gridconfig.x*3 + 1,1)
     end
 end
