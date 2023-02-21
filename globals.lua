@@ -22,16 +22,25 @@ end
 -- recursive function that loops from a start tile until it hits a corner.
 -- each iteration (index) must be saved so we can change the colour of the looped tiles  
 function g_recursive(from_tile_id, from_dir, entry, previous) -- from: start tile, to: to tile, entry: direction 'from' took towards 'to', previous: table of visisted tiles
+    if g_grid == nil then
+        print("OMG LUA NOW WHAT?")
+    end
     from_tile_dirs = g_deg_to_bools(g_grid[from_tile_id].orientation) -- false true true false
     
-    -- a: from_dir is index
-    -- b: loop from_tile_dirs untill dir match is found
     for key,d in pairs(from_tile_dirs) do
         if d == true and key == from_dir then
-            print('next')
+            nextdir = nil
+            for key2,d2 in pairs(from_tile_dirs) do
+                if (not (key2 == from_dir)) and d2 == true then
+                    nextdir = key2
+                    print(key2 .. " " .. from_dir)
+                    break
+                end
+            end
+            print('next dir' .. nextdir)
             g_grid[from_tile_id].selected = true
+            g_recursive(g_get_relative_tile(nextdir, from_tile_id).index,nextdir, nil,nil)
             return
-            -- g_recursive(g_get_relative_tile(from_dir, from_tile_id),g_reverse_dir(from_dir), nil,nil)
         end
     end
     g_grid[from_tile_id].selected = false
@@ -39,29 +48,22 @@ function g_recursive(from_tile_id, from_dir, entry, previous) -- from: start til
     --todo
 end
 
-function g_get_relative_tile(direction, index) --todo change to bool table????
-    if direction[1] == true then -- left
+function g_get_relative_tile(direction, index)
+    if direction == 1 then -- left
         return g_grid[index - 1];
     end
-    if direction[2] == true then -- up
+    if direction == 2 then -- up
         return g_grid[index - g_gridconfig.x];
     end
-    if direction[3] == true then -- right
+    if direction == 3 then -- right
         return g_grid[index + 1];
     end
-    if direction[4] == true then -- down
+    if direction == 4 then -- down
         return g_grid[index + g_gridconfig.x];
     end
 end
 
-function g_reverse_dir(directions)
-    local output = {}
-    for key,d in directions do
-        if d == true then
-            table.insert(output,false)
-        elseif d == false then
-            table.insert(output,true)
-        end
-    end
-    return output
+local reversed_dirs = {2,3,4,1}
+function g_reverse_dir(dir)
+    return reversed_dirs[dir]
 end

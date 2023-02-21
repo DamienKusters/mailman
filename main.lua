@@ -13,6 +13,7 @@ function love.load()
             n = love.math.random(1,4)
             e = {[1]=0, [2]=90,[3]=180,[4]=270}
             g_grid[id] = {
+                ["index"] = id,
                 ["orientation"] = e[n]
             }
             id = id +1
