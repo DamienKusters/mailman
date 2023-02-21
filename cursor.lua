@@ -57,6 +57,7 @@ function cursor.update()
 end
 
 function cursor.draw()
+    love.graphics.setColor(1,1,1)
     id = 1
     for y = 1, g_gridconfig.y do
         for x = 1, g_gridconfig.x do

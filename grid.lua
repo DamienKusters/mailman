@@ -40,7 +40,10 @@ end
 
 function grid.keypressed(key, scancode, isrepeat)
     if key == "space" then
-        g_recursive(g_gridconfig.x + 1,1,nil,nil)
-        -- direction ints = 1=left, 2=up....
+        for id,g in pairs(g_grid) do
+            g.selected = false
+        end
+
+        g_recursive(g_gridconfig.x + 1,1)
     end
 end
