@@ -33,13 +33,13 @@ function g_recursive(from_tile_id, from_dir, entry, previous) -- from: start til
             for key2,d2 in pairs(from_tile_dirs) do
                 if (not (key2 == from_dir)) and d2 == true then
                     nextdir = key2
-                    print(key2 .. " " .. from_dir)
                     break
                 end
             end
-            print('next dir' .. nextdir)
+            reltile = g_get_relative_tile(nextdir, from_tile_id)
+            print('t: ' .. from_tile_id .. " d: " .. nextdir .. " to: " .. reltile.index)
             g_grid[from_tile_id].selected = true
-            g_recursive(g_get_relative_tile(nextdir, from_tile_id).index,nextdir, nil,nil)
+            g_recursive(reltile.index,nextdir, nil,nil)
             return
         end
     end
