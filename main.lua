@@ -12,7 +12,9 @@ function love.load()
         for x = 1, g_gridconfig.x do
             n = love.math.random(1,4)
             e = {[1]=0, [2]=90,[3]=180,[4]=270}
-            g_grid[id] = {["orientation"] = e[n]}
+            g_grid[id] = {
+                ["orientation"] = e[n]
+            }
             id = id +1
         end
     end
@@ -24,7 +26,7 @@ end
 
 function love.update(dt)
 
-    grid.update()
+    grid.update()--todo dt
     cursor.update()
 end
 
@@ -42,5 +44,6 @@ function love.keypressed(key, scancode, isrepeat)
     if key == "escape" then
         love.event.quit()
     end
+    grid.keypressed(key, scancode, isrepeat)
     cursor.keypressed(key, scancode, isrepeat)
 end

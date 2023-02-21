@@ -33,3 +33,9 @@ function grid.draw()
         end
     end
 end
+
+function grid.keypressed(key, scancode, isrepeat)
+    if key == "space" then
+        start = g_grid[g_gridconfig.x + 1]
+    end
+end
