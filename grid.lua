@@ -22,12 +22,16 @@ function grid.draw()
     for y = 1, g_gridconfig.y do
         for x = 1, g_gridconfig.x do
             sprite = sprite_L
-            if id == 8 or id == 28 then
-                sprite = sprite_I
+            --todo: if i have time
+            -- if id == 8 or id == 18 or id == 28 then
+            --     sprite = sprite_I
+            -- end
+            if g_grid[id].selected == true then
+                love.graphics.setColor(1,0,1)
+            else
+                love.graphics.setColor(1,1,1)
             end
-            if id == 18 then
-                sprite = sprite_T
-            end
+
             love.graphics.draw(sprite, x * offset, y * offset, math.rad(g_grid[id].orientation), g_spritescale, g_spritescale, 16/2, 16/2)
             id = id +1
         end
@@ -36,6 +40,7 @@ end
 
 function grid.keypressed(key, scancode, isrepeat)
     if key == "space" then
-        start = g_grid[g_gridconfig.x + 1]
+        g_recursive(g_gridconfig.x + 1,1,nil,nil)
+        -- direction ints = 1=left, 2=up....
     end
 end

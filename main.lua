@@ -44,6 +44,7 @@ function love.keypressed(key, scancode, isrepeat)
     if key == "escape" then
         love.event.quit()
     end
-    grid.keypressed(key, scancode, isrepeat)
+    --cursor must have prio
     cursor.keypressed(key, scancode, isrepeat)
+    grid.keypressed(key, scancode, isrepeat)
 end
