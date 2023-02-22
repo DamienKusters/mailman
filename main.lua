@@ -18,20 +18,15 @@ function love.load()
     love.graphics.setDefaultFilter("nearest", "nearest")
     love.window.setVSync(1)
 
-    --todo: don't use double loop
-    local id = 1
-    for y = 1, g_gridconfig.y do
-        for x = 1, g_gridconfig.x do
-            local n = love.math.random(1,4)
-            local e = {[1]=0, [2]=90,[3]=180,[4]=270}
-            g_grid[id] = {
-                ["index"] = id,
-                ["orientation"] = e[n]
-            }
-            id = id +1
-        end
+    for i = 1, g_gridconfig.y * g_gridconfig.x do
+        local n = love.math.random(1,4)
+        local e = {[1]=0, [2]=90,[3]=180,[4]=270}
+        g_grid[i] = {
+            ["index"] = i,
+            ["orientation"] = e[n]
+        }
+        g_ids = i
     end
-    g_ids = id
 
     for k,mod in pairs(modules) do
         mod.load()

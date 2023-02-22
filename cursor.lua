@@ -8,6 +8,13 @@ local sound_move = nil
 local scale = g_gridconfig.scale
 local offset = g_gridconfig.tilesize*scale
 
+local directions = {
+    ["a"]=1, ['left']=1,
+    ["w"]=2, ['up']=2,
+    ["d"]=3, ['right']=3,
+    ["s"]=4, ['down']=4,
+}
+
 function cursor.load()
     sprite = love.graphics.newImage("assets/cursor.png")
     sound_turn = love.audio.newSource("assets/turn.wav", "stream")
@@ -15,36 +22,23 @@ function cursor.load()
 end
 
 function cursor.keypressed(key, scancode, isrepeat)
-    if key == "left" or key == "a" then
-        if g_index % g_gridconfig.x == 1 then
-            return
-        end
+    if g_is_allowed_grid_movement(directions[key], g_index) == false then
+        return
+    end 
+
+    if directions[key] == 1 then
         g_index = g_index - 1;
         love.audio.play(sound_move);
-    end
-    if key == "up" or key == "w" then
-        if g_index - g_gridconfig.x <= 0 then
-            return
-        end
+    elseif directions[key] == 2 then
         g_index = g_index - g_gridconfig.x;
         love.audio.play(sound_move);
-    end
-    if key == "right" or key == "d" then
-        if g_index % g_gridconfig.x == 0 then
-            return
-        end
+    elseif directions[key] == 3 then
         g_index = g_index + 1;
         love.audio.play(sound_move);
-    end
-    if key == "down" or key == "s" then
-        if g_index + g_gridconfig.x >= g_ids then
-            return
-        end
+    elseif directions[key] == 4 then
         g_index = g_index + g_gridconfig.x;
         love.audio.play(sound_move);
-    end
-
-    if key == "space" then
+    elseif key == "space" then
         if g_grid[g_index].orientation == 270 then
             g_grid[g_index].orientation = 0
         else
@@ -52,7 +46,6 @@ function cursor.keypressed(key, scancode, isrepeat)
         end
         love.audio.play(sound_turn)
     end
-    
 end
 
 function cursor.update(dt)

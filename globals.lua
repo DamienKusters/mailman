@@ -49,29 +49,36 @@ function g_recursive(from_tile_id, from_dir)
 end
 
 function g_get_relative_tile(direction, index)
+    if g_is_allowed_grid_movement(direction, index) == false then
+        return
+    end
+
     if direction == 1 then -- left
-        if index % g_gridconfig.x == 1 then
-            return
-        end
         return g_grid[index - 1];
     end
     if direction == 2 then -- up
-        if index - g_gridconfig.x <= 0 then
-            return
-        end
         return g_grid[index - g_gridconfig.x];
     end
     if direction == 3 then -- right
-        if index % g_gridconfig.x == 0 then
-            return
-        end
         return g_grid[index + 1];
     end
     if direction == 4 then -- down
-        if index + g_gridconfig.x >= g_ids then
-            return
-        end
         return g_grid[index + g_gridconfig.x];
+    end
+end
+
+function g_is_allowed_grid_movement(direction, tile_index)
+    if direction == 1 then -- left
+        return not (tile_index % g_gridconfig.x == 1)
+    end
+    if direction == 2 then -- up
+        return not (tile_index - g_gridconfig.x <= 0)
+    end
+    if direction == 3 then -- right
+        return not (tile_index % g_gridconfig.x == 0)
+    end
+    if direction == 4 then -- down
+        return not (tile_index + g_gridconfig.x >= g_ids)
     end
 end
 
