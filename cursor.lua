@@ -15,7 +15,6 @@ function cursor.load()
 end
 
 function cursor.keypressed(key, scancode, isrepeat)
-
     if key == "left" or key == "a" then
         if g_index % g_gridconfig.x == 1 then
             return
@@ -56,18 +55,18 @@ function cursor.keypressed(key, scancode, isrepeat)
     
 end
 
-function cursor.update()
+function cursor.update(dt)
 end
 
 function cursor.draw()
     love.graphics.setColor(1,1,1)
-    id = 1
+    local id = 1
     for y = 1, g_gridconfig.y do
         for x = 1, g_gridconfig.x do
             if id == g_index then
-                div = g_gridconfig.tilesize/2
-                xpos = ((x * offset) - div*scale) + 32*scale
-                ypos = ((y * offset) - div*scale) + 16*scale
+                local div = g_gridconfig.tilesize/2
+                local xpos = ((x * offset) - div*scale) + 32*scale
+                local ypos = ((y * offset) - div*scale) + 16*scale
                 love.graphics.draw(sprite, xpos, ypos, 0, scale, scale, div, div)
             end
             id = id +1

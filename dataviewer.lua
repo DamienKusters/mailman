@@ -4,7 +4,7 @@ dataviewer = {}
 function dataviewer.load()
 end
 
-function dataviewer.update()
+function dataviewer.update(dt)
 end
 
 function dataviewer.draw()
@@ -24,4 +24,7 @@ function dataviewer.draw()
         tostring(g_deg_to_bools(g_grid[g_index].orientation)[4])
     , 5, 5+(15*2))
     
+end
+
+function dataviewer.keypressed(key, scancode, isrepeat)
 end

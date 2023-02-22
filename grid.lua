@@ -5,15 +5,12 @@ local scale = g_gridconfig.scale
 local offset = g_gridconfig.tilesize*scale
 
 local sprite_L = nil
-local sprite_I = nil
-local sprite_T = nil
 
 function grid.load()
     sprite_L = love.graphics.newImage("assets/l.png")
-    sprite_I = love.graphics.newImage("assets/i.png")
 end
 
-function grid.update()
+function grid.update(dt)
 end
 
 function grid.draw()
