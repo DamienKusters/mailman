@@ -18,6 +18,7 @@ function love.load()
     love.graphics.setDefaultFilter("nearest", "nearest")
     love.window.setVSync(1)
 
+    --todo: don't use double loop
     local id = 1
     for y = 1, g_gridconfig.y do
         for x = 1, g_gridconfig.x do
