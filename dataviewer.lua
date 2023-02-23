@@ -23,6 +23,9 @@ function dataviewer.draw()
         tostring(g_deg_to_bools(g_grid[g_index].orientation)[3]) ..
         tostring(g_deg_to_bools(g_grid[g_index].orientation)[4])
     , 5, 5+(15*2))
+    local r = g_receivers[g_selected_receiver]
+    love.graphics.setColor(r.r,r.g,r.b)
+    love.graphics.print("Rec: " .. tostring(g_selected_receiver), 5, 5+(15*3))
     
 end
 

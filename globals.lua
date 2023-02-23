@@ -9,6 +9,24 @@ g_grid = {}
 g_index = 1
 g_ids = nil
 
+g_mailman_index = 0;--top of the grid
+
+g_selected_receiver = 1; -- receiver
+
+g_receivers = {
+    {r=0,g=.5,b=.5,index=5},--todo position of receiver
+    {r=.5,g=.5,b=0,index=15},
+    {r=.5,g=0,b=.5,index=25},
+    {r=0,g=.5,b=0,index=35},
+}
+
+function g_regen_receiver()
+    local curr = g_selected_receiver;
+    while curr == g_selected_receiver do
+        g_selected_receiver = love.math.random(1,4)
+    end
+end
+
 local degrees = {
     [0]={false,true,true,false},
     [90]={false,false,true,true},
@@ -34,6 +52,10 @@ function g_recursive(from_tile_id, from_dir)
             reltile = g_get_relative_tile(nextdir, from_tile_id)
             g_grid[from_tile_id].selected = true
             if reltile == nil then
+                if g_check_mail_delivered(nextdir, from_tile_id) == true then
+                    print("POINT")
+                    g_regen_receiver()
+                end
                 break
             end
             -- print('t: ' .. from_tile_id .. " d: " .. nextdir .. " | t: " .. reltile.index .. " d: " .. g_reverse_dir(nextdir))
@@ -80,6 +102,15 @@ function g_is_allowed_grid_movement(direction, tile_index)
     if direction == 4 then -- down
         return not (tile_index + g_gridconfig.x > g_ids)
     end
+end
+
+function g_check_mail_delivered(direction, index)
+    if not (direction == 1) then
+        if index == g_receivers[g_selected_receiver].index then
+            return true;
+        end
+    end
+    return false
 end
 
 local reversed_dirs = {3,4,1,2}

@@ -24,7 +24,8 @@ function grid.draw()
             --     sprite = sprite_I
             -- end
             if g_grid[id].selected == true then
-                love.graphics.setColor(0,.5,.5)
+                local r = g_receivers[g_selected_receiver]
+                love.graphics.setColor(r.r,r.g,r.b)
             else
                 love.graphics.setColor(1,1,1)
             end

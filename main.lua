@@ -6,17 +6,21 @@ function love.load()
     require "grid"
     require "cursor"
     require "inputcolumn"
+    require "outputcolumn"
     require "dataviewer"
 
     modules = {
         cursor,
         grid,
         inputcolumn,
+        outputcolumn,
         dataviewer
     }
 
     love.graphics.setDefaultFilter("nearest", "nearest")
     love.window.setVSync(1)
+
+    g_selected_receiver = love.math.random(1,4)
 
     for i = 1, g_gridconfig.y * g_gridconfig.x do
         local n = love.math.random(1,4)

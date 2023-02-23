@@ -24,7 +24,8 @@ function inputcolumn.draw()
         local ypos = ((id * offset) - div*scale) + 16*scale
         love.graphics.setColor(1,1,1)
         love.graphics.draw(sprite, xpos, ypos, 0, scale, scale, div, div)
-        love.graphics.setColor(0,.5,.5)
+        local r = g_receivers[g_selected_receiver]
+        love.graphics.setColor(r.r,r.g,r.b)
         love.graphics.draw(sprite_letter, xpos / 2, ypos, 0, scale/2, scale/2, div, div)
         id = id +1
     -- end
