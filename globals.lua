@@ -78,7 +78,7 @@ function g_is_allowed_grid_movement(direction, tile_index)
         return not (tile_index % g_gridconfig.x == 0)
     end
     if direction == 4 then -- down
-        return not (tile_index + g_gridconfig.x >= g_ids)
+        return not (tile_index + g_gridconfig.x > g_ids)
     end
 end
 
