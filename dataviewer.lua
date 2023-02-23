@@ -18,11 +18,11 @@ function dataviewer.draw()
     -- end
     love.graphics.print("Idx: " .. g_index, 5, 5+(15*0))
     love.graphics.print("Ori: " .. g_grid[g_index].orientation, 5, 5+(15*1))
-    love.graphics.print("Bls: " .. tostring(g_deg_to_bools(g_grid[g_index].orientation)[1]) ..
-        tostring(g_deg_to_bools(g_grid[g_index].orientation)[2]) ..
-        tostring(g_deg_to_bools(g_grid[g_index].orientation)[3]) ..
-        tostring(g_deg_to_bools(g_grid[g_index].orientation)[4])
-    , 5, 5+(15*2))
+    -- love.graphics.print("Bls: " .. tostring(g_deg_to_bools(g_grid[g_index].orientation)[1]) ..
+    --     tostring(g_deg_to_bools(g_grid[g_index].orientation)[2]) ..
+    --     tostring(g_deg_to_bools(g_grid[g_index].orientation)[3]) ..
+    --     tostring(g_deg_to_bools(g_grid[g_index].orientation)[4])
+    -- , 5, 5+(15*2))
     local r = g_receivers[g_selected_receiver]
     love.graphics.setColor(r.r,r.g,r.b)
     love.graphics.print("Rec: " .. tostring(g_selected_receiver), 5, 5+(15*3))

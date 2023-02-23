@@ -25,10 +25,19 @@ function love.load()
     for i = 1, g_gridconfig.y * g_gridconfig.x do
         local n = love.math.random(1,4)
         local e = {[1]=0, [2]=90,[3]=180,[4]=270}
-        g_grid[i] = {
-            ["index"] = i,
-            ["orientation"] = e[n]
-        }
+        if i == 18 then
+            g_grid[i] = {
+                ["index"] = i,
+                ["orientation"] = e[n],
+                ["type"]="I"
+            }
+        else
+            g_grid[i] = {
+                ["index"] = i,
+                ["orientation"] = e[n],
+                ["type"]="L"
+            }
+        end
         g_ids = i
     end
 

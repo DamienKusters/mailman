@@ -5,12 +5,25 @@ local scale = g_gridconfig.scale
 local offset = g_gridconfig.tilesize*scale
 
 local sprite_L = nil
+local sprite_I = nil
+
+local last_selected = nil
 
 function grid.load()
     sprite_L = love.graphics.newImage("assets/l.png")
+    sprite_I = love.graphics.newImage("assets/i.png")
+    last_selected = g_selected_receiver
 end
 
 function grid.update(dt)
+    if not last_selected == g_selected_receiver then
+        print("refresh")
+        for id,g in pairs(g_grid) do
+            g.selected = false
+        end
+        g_recursive(mailman_locations[g_mailman_index],1)
+        last_selected = g_selected_receiver
+    end
 end
 
 function grid.draw()
@@ -20,9 +33,9 @@ function grid.draw()
         for x = 1, g_gridconfig.x do
             local sprite = sprite_L
             --todo: if i have time
-            -- if id == 8 or id == 18 or id == 28 then
-            --     sprite = sprite_I
-            -- end
+            if g_grid[id].type == "I" then
+                sprite = sprite_I
+            end
             if g_grid[id].selected == true then
                 local r = g_receivers[g_selected_receiver]
                 love.graphics.setColor(r.r,r.g,r.b)
@@ -38,17 +51,12 @@ function grid.draw()
     end
 end
 
+
 function grid.keypressed(key, scancode, isrepeat)
     if key == "space" then
         for id,g in pairs(g_grid) do
             g.selected = false
         end
-
-        -- TODO: 
-        -- if g_gridconfig =
-        -- 2 = 5+1 = 6
-        -- 3 = 15+1 = 16
-        -- 6 = 25+1 = 26
-        g_recursive(g_gridconfig.x + 1,1)
+        g_recursive(g_mailman_locations[g_mailman_index],1)
     end
 end

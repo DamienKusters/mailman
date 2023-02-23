@@ -8,6 +8,7 @@ g_gridconfig = {
 g_grid = {}
 g_index = 1
 g_ids = nil
+g_score = 0
 
 g_mailman_index = 0;--top of the grid
 g_selected_receiver = 1; -- receiver
@@ -19,31 +20,52 @@ g_receivers = {
     {r=0,g=.5,b=0,index=35},
 }
 
-function g_regen_receiver()
-    local curr = g_selected_receiver;
-    while curr == g_selected_receiver do
-        g_selected_receiver = love.math.random(1,4)
-    end
+g_mailman_locations = {
+    [1]=1,
+    [2]=6,
+    [3]=11,
+    [4]=16,
+    [5]=21,
+    [6]=26,
+    [7]=31,
+}
 
-    local mail = love.math.random(2,7)
-    while mail % 2 == 1 do
-        mail = love.math.random(2,7)
+function g_regen_receiver()
+    local rec = g_selected_receiver;
+    while rec == g_selected_receiver do
+        rec = love.math.random(1,4)
+    end
+    g_selected_receiver = rec
+
+    local mail = love.math.random(1,7)
+    while mail == g_mailman_index do
+        mail = love.math.random(1,7)
     end
     g_mailman_index = mail
 end
 
+local sound_score = love.audio.newSource("assets/score.wav", "stream")
+
 local degrees = {
-    [0]={false,true,true,false},
-    [90]={false,false,true,true},
-    [180]={true,false,false,true},
-    [270]={true,true,false,false}
+    ["L"]={
+        [0]={false,true,true,false},
+        [90]={false,false,true,true},
+        [180]={true,false,false,true},
+        [270]={true,true,false,false}
+    },
+    ["I"]={
+        [0]={false,true,false,true},
+        [90]={true,false,true,false},
+        [180]={false,true,false,true},
+        [270]={true,false,true,false},
+    }
 }
-function g_deg_to_bools(degree)
-    return degrees[degree]
+function g_deg_to_bools(degree, type)
+    return degrees[type][degree]
 end
 
 function g_recursive(from_tile_id, from_dir)
-    from_tile_dirs = g_deg_to_bools(g_grid[from_tile_id].orientation) -- false true true false
+    from_tile_dirs = g_deg_to_bools(g_grid[from_tile_id].orientation, g_grid[from_tile_id].type)
 
     for key,d in pairs(from_tile_dirs) do
         if d == true and key == from_dir then
@@ -59,19 +81,21 @@ function g_recursive(from_tile_id, from_dir)
             if reltile == nil then
                 if g_check_mail_delivered(nextdir, from_tile_id) == true then
                     print("POINT")
+                    love.audio.play(sound_score)
+                    g_score = g_score + 1
+                    for id,g in pairs(g_grid) do
+                        g.selected = false
+                    end
                     g_regen_receiver()
+                    g_recursive(g_mailman_locations[g_mailman_index],1)
                 end
                 break
             end
-            -- print('t: ' .. from_tile_id .. " d: " .. nextdir .. " | t: " .. reltile.index .. " d: " .. g_reverse_dir(nextdir))
-            print('from: ' .. from_tile_id .. " to: " .. reltile.index)
+            -- print('from: ' .. from_tile_id .. " to: " .. reltile.index)
             g_recursive(reltile.index,g_reverse_dir(nextdir))
             return
         end
     end
-    -- g_grid[from_tile_id].selected = false
-    return print("stop recursion")
-    -- question: what direction did it came from
     --todo
 end
 
