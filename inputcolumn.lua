@@ -21,7 +21,7 @@ function inputcolumn.draw()
     -- for y = 1, g_gridconfig.y do
         local div = g_gridconfig.tilesize/2
         local xpos = ((1 * offset) - div*scale) + 16*scale
-        local ypos = ((id * offset) - div*scale) + 16*scale
+        local ypos = ((g_mailman_index * offset) - div*scale) + 16*scale
         love.graphics.setColor(1,1,1)
         love.graphics.draw(sprite, xpos, ypos, 0, scale, scale, div, div)
         local r = g_receivers[g_selected_receiver]

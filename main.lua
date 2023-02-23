@@ -20,7 +20,7 @@ function love.load()
     love.graphics.setDefaultFilter("nearest", "nearest")
     love.window.setVSync(1)
 
-    g_selected_receiver = love.math.random(1,4)
+    g_regen_receiver()
 
     for i = 1, g_gridconfig.y * g_gridconfig.x do
         local n = love.math.random(1,4)

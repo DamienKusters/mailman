@@ -26,6 +26,7 @@ function dataviewer.draw()
     local r = g_receivers[g_selected_receiver]
     love.graphics.setColor(r.r,r.g,r.b)
     love.graphics.print("Rec: " .. tostring(g_selected_receiver), 5, 5+(15*3))
+    love.graphics.print("Mlm: " .. tostring(g_mailman_index), 5, 5+(15*4))
     
 end
 

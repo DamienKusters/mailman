@@ -44,6 +44,11 @@ function grid.keypressed(key, scancode, isrepeat)
             g.selected = false
         end
 
-        g_recursive(g_gridconfig.x*3 + 1,1)
+        -- TODO: 
+        -- if g_gridconfig =
+        -- 2 = 5+1 = 6
+        -- 3 = 15+1 = 16
+        -- 6 = 25+1 = 26
+        g_recursive(g_gridconfig.x + 1,1)
     end
 end

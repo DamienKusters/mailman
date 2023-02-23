@@ -10,11 +10,10 @@ g_index = 1
 g_ids = nil
 
 g_mailman_index = 0;--top of the grid
-
 g_selected_receiver = 1; -- receiver
 
 g_receivers = {
-    {r=0,g=.5,b=.5,index=5},--todo position of receiver
+    {r=0,g=.5,b=.5,index=5},
     {r=.5,g=.5,b=0,index=15},
     {r=.5,g=0,b=.5,index=25},
     {r=0,g=.5,b=0,index=35},
@@ -25,6 +24,12 @@ function g_regen_receiver()
     while curr == g_selected_receiver do
         g_selected_receiver = love.math.random(1,4)
     end
+
+    local mail = love.math.random(2,7)
+    while mail % 2 == 1 do
+        mail = love.math.random(2,7)
+    end
+    g_mailman_index = mail
 end
 
 local degrees = {
