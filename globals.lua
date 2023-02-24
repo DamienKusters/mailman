@@ -134,7 +134,7 @@ function g_is_allowed_grid_movement(direction, tile_index)
 end
 
 function g_check_mail_delivered(direction, index)
-    if not (direction == 1) then
+    if direction == 3 then
         if index == g_receivers[g_selected_receiver].index then
             return true;
         end
