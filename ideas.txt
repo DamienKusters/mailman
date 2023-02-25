@@ -1,0 +1,8 @@
+- Mailman timer
+    Connect quickly because mailman will move
+
+- Turns penalty
+    the more turns you take on a connection the less points you will get
+
+- Regular timer
+    Get x minute(s) to get as many points as possible

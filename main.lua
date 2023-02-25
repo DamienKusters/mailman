@@ -2,19 +2,19 @@ require("globals")
 
 local modules = {}
 
+local time = 120;
+
 function love.load()
     require "grid"
     require "cursor"
-    require "inputcolumn"
-    require "outputcolumn"
-    require "dataviewer"
+    require "iocolumns"
+    -- require "dataviewer"
 
     modules = {
         cursor,
         grid,
-        inputcolumn,
-        outputcolumn,
-        dataviewer
+        iocolumns,
+        -- dataviewer
     }
 
     love.graphics.setDefaultFilter("nearest", "nearest")
@@ -47,13 +47,19 @@ function love.load()
 end
 
 function love.update(dt)
+    time = time - dt
+    if time <= 0 then
+        love.event.quit()
+    end
     for k,mod in pairs(modules) do
         mod.update(dt)
     end
 end
 
 function love.draw()
-    love.graphics.setColor(1, 0, 0)
+    love.graphics.setColor(1, 1, 1)
+    love.graphics.print("Score: " .. g_score, 5, 5+(15*0))
+    love.graphics.print("Timer: " .. tostring(math.floor(time / 60)) .. ":" .. string.format("%02d", math.floor(time % 60)), 100, 5+(15*0))
 
     for k,mod in pairs(modules) do
         mod.draw()
