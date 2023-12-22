@@ -48,11 +48,15 @@ function cursor.keypressed(key, scancode, isrepeat)
     end
 end
 
+local mpx, mpx;
 function cursor.update(dt)
+    mpx, mpy = love.mouse.getPosition()
 end
 
 function cursor.draw()
     love.graphics.setColor(1,1,1)
+    love.graphics.print(mpx - (g_gridconfig.x * g_gridconfig.scale), 0 ,0 )
+    love.graphics.print(mpy - (g_gridconfig.y * g_gridconfig.scale), 10 ,10 )
     local id = 1
     for y = 1, g_gridconfig.y do
         for x = 1, g_gridconfig.x do
